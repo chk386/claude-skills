@@ -1,2 +1,2 @@
 # tmux추가하자
-ln -s ~/projects/my-claude-skills ~/.claude/skills
+ln -s ~/projects/claude-skills ~/.claude/skills
