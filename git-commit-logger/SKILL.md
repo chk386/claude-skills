@@ -13,28 +13,32 @@ This skill helps generate meaningful git commit messages by analyzing staged cha
 
 ## Quick Start
 
-Basic usage for generating a commit message:
+Generate a commit message with automatic staging:
 
 ```bash
-# Stage your changes first
-git add .
+# Stage all changes and generate commit message in one step
+python3 scripts/generate_commit.py --add
+```
 
-# Generate commit message
+Or if your changes are already staged:
+
+```bash
+# Generate commit message for staged changes
 python3 scripts/generate_commit.py
 ```
 
 The script will:
-1. Detect current branch name and extract ticket number (if present)
-2. Analyze staged changes via `git diff --cached`
-3. Identify changed files and types of changes
-4. Generate a conventional commit message with ticket prefix
+1. Stage changes with `git add .` (when `--add` flag is used)
+2. Detect current branch name and extract ticket number (if present)
+3. Analyze staged changes via `git diff --cached`
+4. Identify changed files and types of changes
+5. Generate a conventional commit message with ticket prefix
 
 ### Example with Ticket Number
 
 ```bash
-# On branch: feature/MKPC-1234
-$ git add src/auth/login.py
-$ python3 scripts/generate_commit.py
+# On branch: feature/MKPC-1234 with unstaged changes
+$ python3 scripts/generate_commit.py --add
 
 Generated Commit Message:
 [MKPC-1234] feat(auth): add user authentication module
@@ -43,12 +47,21 @@ Generated Commit Message:
 ### Example without Ticket Number
 
 ```bash
-# On branch: main
-$ git add README.md
-$ python3 scripts/generate_commit.py
+# On branch: main with unstaged changes
+$ python3 scripts/generate_commit.py --add
 
 Generated Commit Message:
 docs: update README.md
+```
+
+### Using Pre-staged Changes
+
+```bash
+# Changes already staged with git add
+$ python3 scripts/generate_commit.py
+
+Generated Commit Message:
+feat(api): add new endpoint handler
 ```
 
 ## Conventional Commit Format
